@@ -1,4 +1,4 @@
-package com.example.jacpalberto.pokemonexample
+package com.example.jacpalberto.pokemonexample.activities.pokemon_list
 
 import android.content.Context
 import android.graphics.drawable.BitmapDrawable
@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import com.example.jacpalberto.pokemonexample.R
 import com.example.jacpalberto.pokemonexample.models.Pokemon
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_pokemon.view.*
@@ -19,9 +20,11 @@ import java.lang.Exception
  * Created by Alberto Carrillo on 6/1/18.
  */
 
-class PokemonAdapter(private var dataset: List<Pokemon>) : RecyclerView.Adapter<PokemonAdapter.ViewHolder>() {
+class PokemonListAdapter(private var dataset: List<Pokemon>, private val onPokemonClick: (Pokemon, View) -> Unit)
+    : RecyclerView.Adapter<PokemonListAdapter.ViewHolder>() {
+
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(dataset[position])
+        holder.bind(dataset[position], onPokemonClick)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -31,18 +34,15 @@ class PokemonAdapter(private var dataset: List<Pokemon>) : RecyclerView.Adapter<
 
     override fun getItemCount() = dataset.size
 
-    fun addPokemons(pokemonList: List<Pokemon>) {
-        dataset += (pokemonList)
-        notifyDataSetChanged()
-    }
-
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(pokemon: Pokemon) = with(itemView) {
+        fun bind(pokemon: Pokemon, onPokemonClick: (Pokemon, View) -> Unit) = with(itemView) {
             val url = getPokemonImageUrl(pokemon.id)
             pokemonName.text = pokemon.name
 
             Picasso.get()
                     .load(url)
+                    .resize(300, 300)
+                    .centerCrop()
                     .into(pokemonImage, object : com.squareup.picasso.Callback {
                         override fun onError(e: Exception?) {}
 
@@ -50,7 +50,7 @@ class PokemonAdapter(private var dataset: List<Pokemon>) : RecyclerView.Adapter<
                             setPaletteColors(context, pokemonImage, pokemonCardView)
                         }
                     })
-            pokemonCardView.setOnClickListener {}
+            pokemonCardView.setOnClickListener { onPokemonClick(pokemon, this) }
         }
 
         private fun getPokemonImageUrl(id: Int?) = "http://pokeapi.co/media/sprites/pokemon/$id.png"

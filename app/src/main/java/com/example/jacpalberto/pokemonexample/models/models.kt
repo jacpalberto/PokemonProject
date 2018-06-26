@@ -1,6 +1,5 @@
 package com.example.jacpalberto.pokemonexample.models
 
-import android.util.Log
 import com.google.gson.annotations.SerializedName
 
 /**
@@ -9,13 +8,33 @@ import com.google.gson.annotations.SerializedName
 data class Pokemon(val name: String?, val url: String?) {
     val id: Int
         get () {
-            if (url == null) return 0
+            return if (url == null) 0
             else {
                 val urlSplitted = url.split("/")
-                return urlSplitted[urlSplitted.size - 2].toIntOrNull() ?: 0
+                urlSplitted[urlSplitted.size - 2].toIntOrNull() ?: 0
             }
         }
 }
 
-data class PokemonResponse(
-        @SerializedName("results") val results: MutableList<Pokemon>?)
+data class PokemonDetail(@SerializedName("stats") val stats: List<Stat>? = null,
+                         @SerializedName("name") val name: String? = null,
+                         @SerializedName("weight") val weight: Int? = null,
+                         @SerializedName("id") val id: Int? = null,
+                         @SerializedName("base_experience") val baseExperience: Int? = null,
+                         @SerializedName("types") val types: List<Type>? = null)
+
+data class Stat(@SerializedName("stat") val stat: StatData? = null,
+                @SerializedName("effort") val effort: Int? = null,
+                @SerializedName("base_stat") val baseStat: Int? = null)
+
+data class StatData(@SerializedName("url") val url: String? = null,
+                    @SerializedName("name") val name: String? = null)
+
+data class Type(@SerializedName("slot") val slot: Int? = null,
+                @SerializedName("type") val type: TypeData? = null)
+
+data class TypeData(@SerializedName("url") val url: String? = null,
+                    @SerializedName("name") val name: String? = null)
+
+data class PokemonResponse(@SerializedName("results")
+                           val results: MutableList<Pokemon>?)

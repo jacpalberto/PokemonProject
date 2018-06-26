@@ -5,11 +5,13 @@
     android:id="@+id/pokemonCardView"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:layout_gravity="center"
     android:layout_marginBottom="@dimen/margin_small"
     android:layout_marginLeft="@dimen/margin_mini"
     android:layout_marginRight="@dimen/margin_mini"
     android:background="?android:attr/selectableItemBackground"
     android:clipChildren="true"
+    android:foregroundGravity="center"
     app:cardCornerRadius="4dp"
     app:cardElevation="2dp"
     app:cardPreventCornerOverlap="true"
@@ -19,6 +21,8 @@
         android:id="@+id/pokemonLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:clipChildren="false"
+        android:clipToPadding="false"
         android:orientation="vertical">
 
         <ImageView

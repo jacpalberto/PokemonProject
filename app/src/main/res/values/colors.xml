@@ -1,7 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorPrimary">#cc040e</color>
+    <color name="colorPrimaryDark">#8f0007</color>
     <color name="colorAccent">#FF4081</color>
     <color name="shadow">#af212121</color>
+    <color name="normal">#a9784d</color>
+    <color name="normalDark">#6e4e31</color>
+    <color name="fighting">#fc4a51</color>
+    <color name="fightingDark">#bc343a</color>
+    <color name="flying">#6f77bb</color>
+    <color name="flyingDark">#515787</color>
+    <color name="poison">#a34c90</color>
+    <color name="poisonDark">#733565</color>
+    <color name="ground">#e0a353</color>
+    <color name="groundDark">#a37538</color>
+    <color name="rock">#9a9151</color>
+    <color name="rockDark">#766f3e</color>
+    <color name="bug">#859e2e</color>
+    <color name="bugDark">#637620</color>
+    <color name="ghost">#705986</color>
+    <color name="ghostDark">#3e2e4d</color>
+    <color name="steel">#7ba5b1</color>
+    <color name="steelDark">#466771</color>
+    <color name="fire">#f86140</color>
+    <color name="fireDark">#ac3b22</color>
+    <color name="water">#43bdd2</color>
+    <color name="waterDark">#237583</color>
+    <color name="grass">#69c049</color>
+    <color name="grassDark">#346c1f</color>
+    <color name="electric">#fdbd0e</color>
+    <color name="electricDark">#827717</color>
+    <color name="psychic">#fd497a</color>
+    <color name="psychicDark">#a12546</color>
+    <color name="ice">#5fd6c8</color>
+    <color name="iceDark">#287970</color>
+    <color name="dragon">#484c99</color>
+    <color name="dragonDark">#1e204b</color>
+    <color name="dark">#473e3e</color>
+    <color name="darkDark">#131111</color>
+    <color name="fairy">#fb5d9a</color>
+    <color name="fairyDark">#a62a5a</color>
+    <color name="emerald">#18b667</color>
+    <color name="emeraldDark">#07794f</color>
 </resources>
