@@ -1,4 +1,4 @@
-package com.example.jacpalberto.pokemonexample.activities.pokemon_detail
+package com.example.jacpalberto.pokemonexample.pokemon_detail
 
 import android.graphics.drawable.GradientDrawable
 import android.support.v7.widget.RecyclerView

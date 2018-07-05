@@ -1,6 +1,7 @@
-package com.example.jacpalberto.pokemonexample.activities.pokemon_list
+package com.example.jacpalberto.pokemonexample.pokemon_list
 
 import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.content.Intent
@@ -10,34 +11,39 @@ import android.support.design.widget.AppBarLayout
 import android.support.v4.app.ActivityCompat
 import android.support.v4.app.ActivityOptionsCompat
 import android.support.v4.util.Pair
-import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.Toolbar
+import android.util.Log
 import android.view.View
 import android.view.Window
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import com.example.jacpalberto.pokemonexample.R
-import com.example.jacpalberto.pokemonexample.activities.pokemon_detail.PokemonDetailActivity
 import com.example.jacpalberto.pokemonexample.models.Pokemon
+import com.example.jacpalberto.pokemonexample.pokemon_detail.PokemonDetailActivity
 import com.example.jacpalberto.pokemonexample.utils.PokemonActivityObserver
+import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_pokemon_detail.*
 import kotlinx.android.synthetic.main.activity_pokemon_list.*
+import javax.inject.Inject
 
 /**
  * Created by Alberto Carrillo on 6/24/18.
  */
 
 class PokemonListActivity : AppCompatActivity() {
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+
     companion object {
         fun newIntent(context: Context) = Intent(context, PokemonListActivity::class.java)
     }
 
     private val onPokemonClick = { pokemon: Pokemon, view: View ->
         val transitionIntent = PokemonDetailActivity.newIntent(this, pokemon)
-        val options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, *getPairList(view))
+        val options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, *getSharedElementsPairList(view))
         ActivityCompat.startActivity(this, transitionIntent, options.toBundle())
     }
     private var pokemonAdapter: PokemonListAdapter = PokemonListAdapter(emptyList(), onPokemonClick)
@@ -46,8 +52,11 @@ class PokemonListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pokemon_list)
+        AndroidInjection.inject(this)
         this.lifecycle.addObserver(PokemonActivityObserver())
-        viewModel = ViewModelProviders.of(this).get(PokemonListViewModel::class.java)
+
+        viewModel = ViewModelProviders.of(this, viewModelFactory).get(PokemonListViewModel::class.java)
+
         init()
     }
 
@@ -86,6 +95,7 @@ class PokemonListActivity : AppCompatActivity() {
     }
 
     private fun showPokemons(pokemonList: List<Pokemon>?) {
+        Log.d(localClassName, "ShowingPokemons")
         dismissProgress()
         if (pokemonList != null) {
             pokemonAdapter = PokemonListAdapter(pokemonList, onPokemonClick)
@@ -102,7 +112,7 @@ class PokemonListActivity : AppCompatActivity() {
         pokemonListSwipe.isRefreshing = false
     }
 
-    private fun getPairList(view: View): Array<android.support.v4.util.Pair<View, String>> {
+    private fun getSharedElementsPairList(view: View): Array<android.support.v4.util.Pair<View, String>> {
         val navigationBar = findViewById<View>(android.R.id.navigationBarBackground)
         val statusBar = findViewById<View>(android.R.id.statusBarBackground)
         val pokemonImage = view.findViewById<ImageView>(R.id.pokemonImage)
@@ -123,5 +133,4 @@ class PokemonListActivity : AppCompatActivity() {
         }
         return pairList.toTypedArray()
     }
-
 }

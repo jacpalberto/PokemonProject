@@ -1,4 +1,4 @@
-package com.example.jacpalberto.pokemonexample.activities.pokemon_list
+package com.example.jacpalberto.pokemonexample.pokemon_list
 
 import android.content.Context
 import android.graphics.drawable.BitmapDrawable

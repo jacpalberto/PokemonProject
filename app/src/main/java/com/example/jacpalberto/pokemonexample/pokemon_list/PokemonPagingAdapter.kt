@@ -1,4 +1,4 @@
-package com.example.jacpalberto.pokemonexample.activities.pokemon_list
+package com.example.jacpalberto.pokemonexample.pokemon_list
 
 import android.arch.paging.PagedListAdapter
 import android.support.v7.util.DiffUtil

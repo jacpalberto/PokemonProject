@@ -10,9 +10,7 @@ import retrofit2.http.Query
 /**
  * Created by Alberto Carrillo on 6/1/18.
  */
-interface Api {
-    //@GET("pokemon/")
-    //fun getPokemonList(): Call<PokemonResponse>
+interface PokemonService {
     @GET("pokemon/")
     fun getPokemonList(@Query("limit") limit: Int): Call<PokemonResponse>
 

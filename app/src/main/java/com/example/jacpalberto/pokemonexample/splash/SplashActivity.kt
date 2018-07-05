@@ -1,4 +1,4 @@
-package com.example.jacpalberto.pokemonexample.activities
+package com.example.jacpalberto.pokemonexample.splash
 
 import android.animation.Animator
 import android.os.Bundle
@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.ImageView
 import com.example.jacpalberto.pokemonexample.R
-import com.example.jacpalberto.pokemonexample.activities.pokemon_list.PokemonListActivity
+import com.example.jacpalberto.pokemonexample.pokemon_list.PokemonListActivity
 
 /**
  * Created by Alberto Carrillo on 6/24/18.

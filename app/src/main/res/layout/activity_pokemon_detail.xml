@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@android:color/white"
     android:fitsSystemWindows="true"
-    tools:context=".activities.pokemon_detail.PokemonDetailActivity">
+    tools:context=".pokemon_detail.PokemonDetailActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appBarLayout"

@@ -1,18 +1,17 @@
-package com.example.jacpalberto.pokemonexample.activities.pokemon_list
+package com.example.jacpalberto.pokemonexample.pokemon_list
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
-import android.arch.paging.LivePagedListBuilder
-import android.arch.paging.PagedList
 import com.example.jacpalberto.pokemonexample.models.Pokemon
-import com.example.jacpalberto.pokemonexample.repositories.PokemonListRepository
+import com.example.jacpalberto.pokemonexample.repositories.PokemonRepository
+import javax.inject.Inject
 
 /**
  * Created by Alberto Carrillo on 6/21/18.
  */
 
-class PokemonListViewModel : ViewModel() {
+class PokemonListViewModel @Inject constructor(private val repository: PokemonRepository) : ViewModel() {
     private var pokemonList: MutableLiveData<List<Pokemon>>? = null
     private var toastMessage: MutableLiveData<String>? = null
 
@@ -26,14 +25,14 @@ class PokemonListViewModel : ViewModel() {
     fun getPokemons(): MutableLiveData<List<Pokemon>> {
         if (pokemonList == null) {
             pokemonList = MutableLiveData()
-            pokemonList = PokemonListRepository.getPokemons()
+            repository.getPokemons(::updateErrorMessage) {
+                pokemonList?.value = it.value
+            }
         }
         return pokemonList as MutableLiveData<List<Pokemon>>
     }
 
-  /*  val getPagingPokemons =
-            LivePagedListBuilder(PokemonListRepository.getPokemons(), PagedList.Config.Builder()
-            .setPageSize(20)
-            .setEnablePlaceholders(true)
-            .build()).build()*/
+    private fun updateErrorMessage() {
+        toastMessage?.value = "Could not update pokemons"
+    }
 }

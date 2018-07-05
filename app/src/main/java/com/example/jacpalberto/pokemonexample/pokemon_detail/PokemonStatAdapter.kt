@@ -1,4 +1,4 @@
-package com.example.jacpalberto.pokemonexample.activities.pokemon_detail
+package com.example.jacpalberto.pokemonexample.pokemon_detail
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -12,9 +12,9 @@ import kotlinx.android.synthetic.main.item_pokemon_stat.view.*
  * Created by Alberto Carrillo on 6/25/18.
  */
 class PokemonStatAdapter(private val dataset: List<Stat>) : RecyclerView.Adapter<PokemonStatAdapter.ViewHolder>() {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PokemonStatAdapter.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_pokemon_stat, parent, false)
-        return PokemonStatAdapter.ViewHolder(itemView)
+        return ViewHolder(itemView)
     }
 
     override fun getItemCount() = dataset.size

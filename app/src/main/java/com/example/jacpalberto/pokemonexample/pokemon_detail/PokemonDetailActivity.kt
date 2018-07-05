@@ -1,8 +1,9 @@
-package com.example.jacpalberto.pokemonexample.activities.pokemon_detail
+package com.example.jacpalberto.pokemonexample.pokemon_detail
 
 import android.animation.ArgbEvaluator
 import android.animation.ValueAnimator
 import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.content.Intent
@@ -19,11 +20,15 @@ import android.widget.ImageView
 import com.example.jacpalberto.pokemonexample.R
 import com.example.jacpalberto.pokemonexample.models.Pokemon
 import com.example.jacpalberto.pokemonexample.models.PokemonDetail
+import com.example.jacpalberto.pokemonexample.pokemon_list.PokemonListViewModel
 import com.example.jacpalberto.pokemonexample.utils.AppBarStateChangeListener
+import com.example.jacpalberto.pokemonexample.utils.PokemonActivityObserver
 import com.squareup.picasso.Picasso
+import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_pokemon_detail.*
 import kotlinx.android.synthetic.main.pokemon_detail_content.*
 import java.lang.Exception
+import javax.inject.Inject
 
 /**
  * Created by Alberto Carrillo on 6/24/18.
@@ -36,6 +41,9 @@ class PokemonDetailActivity : AppCompatActivity() {
     private var viewModel: PokemonDetailViewModel? = null
     private var toolbarState: String = "EXPANDED"
 
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+
     companion object {
         fun newIntent(context: Context, pokemon: Pokemon) =
                 Intent(context, PokemonDetailActivity::class.java).apply {
@@ -47,8 +55,11 @@ class PokemonDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pokemon_detail)
-        viewModel = ViewModelProviders.of(this).get(PokemonDetailViewModel::class.java)
         supportPostponeEnterTransition()
+        AndroidInjection.inject(this)
+
+        viewModel = ViewModelProviders.of(this, viewModelFactory).get(PokemonDetailViewModel::class.java)
+
         init()
     }
 
